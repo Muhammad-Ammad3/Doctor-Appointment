@@ -24,10 +24,9 @@ export default function DoctorsSection( {isHome} ){
 const filtered = isHome ?doctors.slice(0,6) : doctors
 
 return(
-  <div className="container mx-auto my-10 ">
- 
+  <div className="container mx-auto my-5 ">
     <div className="flex justify-between">
-      <h1 className="text-3xl font-semibold">Doctors You Need</h1>
+      <h1 className="text-5xl font-semibold">Doctors You Need</h1>
       {isHome ? (
         <Link href={'/doctors'}>
         <Button>

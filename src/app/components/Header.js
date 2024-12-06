@@ -7,25 +7,30 @@ import {
     MenubarShortcut,
     MenubarTrigger,
   } from "@/components/ui/menubar"
-  import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Link from "next/link"
 import { Button } from "@/components/ui/button";
+import { auth, signOut } from "../../../auth";
+import Image from "next/image";
 
 
-export default function Header(){
-  const session = {name:'Ammad'};
+export default async function Header(){
+  const session = await auth()
+  console.log(session)
     return (
         <div className=" bg-secondary py-3">
             <div className="container flex  mx-auto justify-between ">
 
             <h1 className="font-bold text-xl font-mono">LOGO</h1>
             {
-              session ?    <Menubar>
+              session ? <Menubar>
               <MenubarMenu>
-                <MenubarTrigger className='bg-transparent bg-none border-none'><Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback>DAS</AvatarFallback>
-            </Avatar></MenubarTrigger>
+                <MenubarTrigger className='bg-transparent bg-none border-none'>
+              <Image src={session?.user?.image}
+              height={40}
+              width={40}
+              className="rounded-full"
+              />
+             </MenubarTrigger>
                 <MenubarContent>
                   <Link href={'/profile'}>
                   <MenubarItem>Profile</MenubarItem>
@@ -35,13 +40,20 @@ export default function Header(){
                   <MenubarItem>My Appointment</MenubarItem>
                   </Link>
                   <MenubarSeparator />
-                  <MenubarItem>Logout</MenubarItem>
+                  <form
+      action={async () => {
+        "use server"
+        await signOut("google")
+      }}
+    >
+<Button variant = 'outline'>LogOut</Button>
+</form>
                 </MenubarContent>
               </MenubarMenu>
             </Menubar>
             : 
             
-          <Link href={'/SignIn'}>
+          <Link href={'/signIn'}>
             <Button variant ='outline'>Login</Button>
             </Link>
             }

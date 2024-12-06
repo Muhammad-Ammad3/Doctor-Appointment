@@ -34,7 +34,7 @@ export default function HeroSection(){
     <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
       <Image
         className="object-cover object-center rounded flex justify-end"
-        height={400}
+        height={200}
         width={400}
         alt="hero"
         src="https://images.unsplash.com/photo-1584467735815-f778f274e296?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8ZG9jdG9yfGVufDB8fDB8fHww"
