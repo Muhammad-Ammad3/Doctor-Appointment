@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import { auth } from "../../../auth";
 
-export default function HeroSection(){
+export default async function HeroSection(){
+  const session = await auth()
     return (
         <div className="text-gray-600 body-font my-0">
             <section className="text-gray-600 body-font">
@@ -23,7 +25,7 @@ export default function HeroSection(){
        <Button variant='outline'>
         Find Doctor you Need
        </Button>
-       <Link href={'/doctors/apply'}>
+       <Link href={session ? '/doctors/apply' : '/signIn'}>
        <Button>
         Apply as Doctor
        </Button>

@@ -26,14 +26,14 @@ const formSchema = z.object({
   name: z.string().min(2, "Name should be at least 2 characters long").max(50, "Name should not exceed 50 characters"),
   bio: z.string().min(2, "Bio should be at least 2 characters long").max(120, "Bio should not exceed 120 characters"),
   hospital: z.string().min(2, "Hospital name should be at least 2 characters long").max(50, "Hospital name should not exceed 50 characters"),
-  days: z.array(z.string()),
+  // days: z.array(z.string()),
   gender: z.string(),
   fees: z.string(),
   appointmentTime: z.date(),
   degree: z.string(),
   specialization: z.string(),
   experience: z.string(),
-  profileImage: z.string(),
+  // profileImage: z.string(),
   number: z.string(),
   email: z.string().email("Invalid email format"),
   address: z.string(),
@@ -49,19 +49,19 @@ const DoctorForm = () => {
       days: [],
       gender: "",
       fees: "",
-      appointmentTime: new Date(),
+      appointmentTime: "",
       degree: "",
       specialization: "",
       experience: "",
-      profileImage: "",
+      // profileImage: "",
       number: "",
       email: "",
       address: "",
     },
   })
-  const onDrop = useCallback(acceptedFiles => {
-  }, [])
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+  // const onDrop = useCallback(acceptedFiles => {
+  // }, [])
+  // const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
   const onSubmit= (data) => {
     console.log(data)
@@ -70,8 +70,9 @@ const DoctorForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        <FormField
+        {/* <FormField
           name="name"
+          control = {form.control}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Name</FormLabel>
@@ -81,10 +82,12 @@ const DoctorForm = () => {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
 
         <FormField
           name="hospital"
+          control = {form.control}
+
           render={({ field }) => (
             <FormItem>
               <FormLabel>Hospital</FormLabel>
@@ -98,6 +101,7 @@ const DoctorForm = () => {
 
         <FormField
           name="gender"
+          control = {form.control}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Gender</FormLabel>
@@ -111,6 +115,8 @@ const DoctorForm = () => {
 
         <FormField
           name="bio"
+          control = {form.control}
+
           render={({ field }) => (
             <FormItem>
               <FormLabel>Bio</FormLabel>
@@ -124,6 +130,7 @@ const DoctorForm = () => {
 
         <FormField
           name="fees"
+          control = {form.control}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Fees</FormLabel>
@@ -135,7 +142,7 @@ const DoctorForm = () => {
           )}
         />
 
-        <FormField
+        {/* <FormField
           name="days"
           render={({ field }) => (
             <FormItem>
@@ -150,22 +157,23 @@ const DoctorForm = () => {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
 
-        <FormField
+        {/* <FormField
           name="appointmentTime"
+          control = {form.control}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Appointment Time</FormLabel>
               <FormControl>
-                <Input type="datetime-local" {...field} />
+                <Input type="time" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
 
-        <FormField
+        {/* <FormField
           name="degree"
           render={({ field }) => (
             <FormItem>
@@ -176,9 +184,9 @@ const DoctorForm = () => {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
 
-        <FormField
+        {/* <FormField
           name="specialization"
           render={({ field }) => (
             <FormItem>
@@ -189,10 +197,11 @@ const DoctorForm = () => {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
 
         <FormField
           name="experience"
+          control = {form.control}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Experience</FormLabel>
@@ -207,6 +216,7 @@ const DoctorForm = () => {
 <UploadImg/>
         <FormField
           name="number"
+          control = {form.control}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Phone Number</FormLabel>
@@ -218,7 +228,7 @@ const DoctorForm = () => {
           )}
         />
 
-        <FormField
+        {/* <FormField
           name="email"
           render={({ field }) => (
             <FormItem>
@@ -229,10 +239,11 @@ const DoctorForm = () => {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
 
         <FormField
           name="address"
+          control = {form.control}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Address</FormLabel>
