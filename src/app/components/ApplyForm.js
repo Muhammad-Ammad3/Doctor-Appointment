@@ -2,7 +2,7 @@
 
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm, SubmitHandler, FieldValues } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -15,252 +15,141 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import React, {useCallback} from 'react'
-import {useDropzone} from 'react-dropzone'
-import Dropzone from 'react-dropzone'
-import UploadImg from "./UploadImage"
-
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 const formSchema = z.object({
-  name: z.string().min(2, "Name should be at least 2 characters long").max(50, "Name should not exceed 50 characters"),
-  bio: z.string().min(2, "Bio should be at least 2 characters long").max(120, "Bio should not exceed 120 characters"),
-  hospital: z.string().min(2, "Hospital name should be at least 2 characters long").max(50, "Hospital name should not exceed 50 characters"),
-  // days: z.array(z.string()),
-  gender: z.string(),
+  name: z.string().min(2).max(50),
+  bio: z.string().min(2).max(120),
+  hospital: z.string().min(2).max(50),
+  days: z.array(z.string()),
   fees: z.string(),
+  gender: z.string(),
   appointmentTime: z.date(),
   degree: z.string(),
   specialization: z.string(),
   experience: z.string(),
-  // profileImage: z.string(),
+  profileImage: z.string(),
   number: z.string(),
-  email: z.string().email("Invalid email format"),
+  email: z.string().email(),
   address: z.string(),
 })
 
-const DoctorForm = () => {
-  const form = useForm({
+export const DoctorForm = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       bio: "",
       hospital: "",
       days: [],
-      gender: "",
       fees: "",
-      appointmentTime: "",
+      gender: "",
+      appointmentTime: new Date(),
       degree: "",
       specialization: "",
       experience: "",
-      // profileImage: "",
+      profileImage: "",
       number: "",
       email: "",
       address: "",
     },
   })
-  // const onDrop = useCallback(acceptedFiles => {
-  // }, [])
-  // const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
-  const onSubmit= (data) => {
-    console.log(data)
+  // Handle form submission
+  const onSubmit = (values) => {
+    console.log(values)
   }
+  const form = useForm()
 
   return (
+
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        {/* <FormField
-          name="name"
-          control = {form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
-
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
-          name="hospital"
-          control = {form.control}
-
+          control={form.control}
+          name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Hospital</FormLabel>
+              <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="Enter hospital name" {...field} />
+                <Input placeholder="Enter Your Name" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
         <FormField
-          name="gender"
-          control = {form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Gender</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter gender" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
+          control={form.control}
           name="bio"
-          control = {form.control}
-
           render={({ field }) => (
             <FormItem>
               <FormLabel>Bio</FormLabel>
               <FormControl>
-                <Textarea placeholder="Enter bio" {...field} />
+                <Textarea placeholder="Enter Bio" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
         <FormField
-          name="fees"
-          control = {form.control}
+          control={form.control}
+          name="hospital"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fees</FormLabel>
+              <FormLabel>Hospital</FormLabel>
               <FormControl>
-                <Input placeholder="Enter fees" {...field} />
+                <Textarea placeholder="Enter Hospital Name" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
-        {/* <FormField
+        <FormField
+          control={form.control}
           name="days"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Available Days</FormLabel>
+            <FormItem>  
+              <FormLabel>Availabel Days</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="Enter days"
-                  value={field.value.join(", ")}
-                  onChange={(e) => field.onChange(e.target.value.split(", ").map((day) => day.trim()))}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
-
-        {/* <FormField
-          name="appointmentTime"
-          control = {form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Appointment Time</FormLabel>
-              <FormControl>
-                <Input type="time" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
-
-        {/* <FormField
-          name="degree"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Degree</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter degree" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
-
-        {/* <FormField
-          name="specialization"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Specialization</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter specialization" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
-
-        <FormField
-          name="experience"
-          control = {form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Experience</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter experience" {...field} />
+                <Select>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Theme" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="light">Light</SelectItem>
+                    <SelectItem value="dark">Dark</SelectItem>
+                    <SelectItem value="system">System</SelectItem>
+                  </SelectContent>
+                </Select>
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
-<UploadImg/>
         <FormField
-          name="number"
-          control = {form.control}
+          control={form.control}
+          name="bio"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Phone Number</FormLabel>
+              <FormLabel>Bio</FormLabel>
               <FormControl>
-                <Input placeholder="Enter phone number" {...field} />
+                <Textarea placeholder="Enter Bio" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
-        {/* <FormField
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
-
-        <FormField
-          name="address"
-          control = {form.control}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Address</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter address" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <div className="col-span-2 sm:col-span-3">
-          <Button type="submit">Submit</Button>
-        </div>
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
+
   )
 }
 
-export default DoctorForm
+export default DoctorForm;
