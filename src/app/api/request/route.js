@@ -2,7 +2,7 @@ import { connectDB } from "@/lib/connectDB"
 import { RequestModel } from "@/lib/models/RequestModel";
 
 
-export async function POTS(req){
+export async function POST(req){
     await connectDB();
  try {
     const obj = await req.json()
