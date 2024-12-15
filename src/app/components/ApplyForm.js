@@ -58,12 +58,22 @@ export const DoctorForm = ({ session }) => {
   async function onSubmit(values) {
     console.log(values)
     values.user = session.user._id
-    await addRequest(values)
-    form.reset()
-    toast({
-      title: "Your application is submitted",
-      description: "You will be inform by email in 3 business days.",
-    })
+    const response = await addRequest(values)
+    console.log("response",response);
+    
+    if(response.error){
+      form.reset()
+      toast({
+        title: "Sorry, Your application cannot be submitted",
+        description: response.msg,
+      })
+    }else{
+      form.reset()
+      toast({
+        title: "Your application is submitted",
+        description: "You will be inform by email in 3 business days.",
+      })
+    }
 
   }
   const form = useForm()
@@ -72,9 +82,9 @@ export const DoctorForm = ({ session }) => {
     <Form {...form}>
     <form
       onSubmit={form.handleSubmit(onSubmit)}
-      className="flex items-center justify-center p-6 bg-white w-full shadow-lg rounded-lg"
+      className="space-y-6"
     >
-      <div className="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 m-2 lg:grid-cols-2 gap-5">
         <FormField
           control={form.control}
           name="username"
