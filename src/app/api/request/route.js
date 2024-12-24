@@ -35,11 +35,11 @@ export async function POST(req){
         status: 400
     })
  }
-}
+}           
 
 export async function GET(req){
     await connectDB();
-    const requests = await RequestModel.find();
+    const requests = await RequestModel.findOne();
     return  Response.json({
         error: false,
         msg: "Requests Fetched Successfully",

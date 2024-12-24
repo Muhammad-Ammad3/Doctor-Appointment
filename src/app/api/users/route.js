@@ -17,7 +17,7 @@ export async function POTS(req){
     })
  } catch (error) {
     return  Response.json({
-        error: true,
+           error: true,
         msg: "Something Went Wrong",
     },{
         status: 400
